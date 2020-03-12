@@ -1,67 +1,70 @@
 ﻿@model IEnumerable<Mvc.Models.mvcEmployeeModel>
-
+<!DOCTYPE html>
 @{
     ViewBag.Title = "Index";
 
 }
-<br />
-
-<p>
-    <a href="@Url.Action("AddOrEdit","Employee")" class=" btn btn-default"><i class="fa fa-pencil"></i>Create new</a>
-    <!-- 1. Đoạn cần thêm -->
-    @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
-    {
-    <p>
-        @Html.TextBox("search") <input type="submit" value="Search"/>
-    </p>
-}
-    <!-- Kết thúc -->
-    </p>
-
-
-    <table class="table table-striped">
-        <thead class="table-heading">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Position)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Age)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        @foreach (var item in Model)
+<html>
+<head>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.1.219/styles/kendo.default-v2.min.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2020.1.219/js/kendo.all.min.js"></script>
+</head>
+<body>
+    <br />
+        <a href="@Url.Action("AddOrEdit","Employee")" class=" btn btn-default"><i class="fa fa-pencil"></i>Create new</a>
+        <!-- 1. Đoạn cần thêm -->
+        @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Position)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
-                </td>
-                <td>
-                    <a href="@Url.Action("AddOrEdit", "Employee", new { id = item.EmployeeID})" class="btn btn-default"><i class="fa fa-pencil"></i>  Edit</a> |
-                    <a onclick="Delete(@item.EmployeeID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
-                </td>
-            </tr>
+        <p>
+            @Html.TextBox("search") <input type="submit" value="Search" />
+        </p>
         }
-    </table>
-    @section scripts{
-        <script>
+        <!-- Kết thúc -->
+      
+        <table class="table table-striped">
+            <thead class="table-heading">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Position)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Salary)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("AddOrEdit", "Employee", new { id = item.EmployeeID})" class="btn btn-default"><i class="fa fa-pencil"></i>  Edit</a> |
+                        <a onclick="Delete(@item.EmployeeID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        @section scripts{
+            <script>
         $(function () {
             var successMessage = '@TempData["SuccessMessage"]'
             if (successMessage != '')
@@ -73,5 +76,7 @@
                 window.location.href  = '@Url.Action("Delete","Employee")/'+id;
             },null );
         }
-        </script>
-    }
+            </script>
+        }
+    </body>
+</html>
